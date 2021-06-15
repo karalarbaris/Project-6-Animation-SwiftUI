@@ -9,33 +9,27 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var animationAmount: CGFloat = 1
+    @State private var animationAmount = 0.0
     
     var body: some View {
-        print(animationAmount)
-        return NavigationView {
-            VStack {
-//                Stepper("Scale amount", value: $animationAmount.animation(), in: 1...10)
-                Stepper("Scale amount", value: $animationAmount.animation(
-                    Animation.easeOut(duration: 1)
-                        .repeatCount(3, autoreverses: true)
-                ), in: 1...10)
-                
-                Spacer()
-                
-                Button("Tap Me") {
-                    self.animationAmount += 1
-                }
-                .padding(40)
-                .background(Color.red)
-                .foregroundColor(.white)
-                .clipShape(Circle())
-                .scaleEffect(animationAmount)
-                
-                
+        
+        Button("Tap Me") {
+//            withAnimation {
+//                animationAmount += 360
+//            }
+            withAnimation(.interpolatingSpring(stiffness: 5, damping: 1)) {
+                animationAmount += 360
             }
-            
         }
+        .padding(50)
+        .background(Color.red)
+        .foregroundColor(.white)
+        .clipShape(Circle())
+        .rotation3DEffect(
+            .degrees(animationAmount),
+            axis: (x: 0.0, y: 1.0, z: 0.0)
+        )
+        
         
     }
 }
