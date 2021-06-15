@@ -13,15 +13,51 @@ struct ContentView: View {
     
     var body: some View {
         Button("sdgds sad") {
-            animationAmount += 0.3
+//            animationAmount += 0.3
         }
         .padding(50)
         .background(Color.red)
         .foregroundColor(.white)
         .clipShape(Circle())
-        .scaleEffect(animationAmount)
-        .animation(.default)
-        .blur(radius: (animationAmount-1) * 3)
+//        .scaleEffect(animationAmount)
+//        .animation(.default)
+        
+//        .blur(radius: (animationAmount-1) * 3)
+        
+//        .animation(.interpolatingSpring(stiffness: 50, damping: 1))
+        
+//        .animation(.easeInOut(duration: 2))
+        
+//        .animation(
+//            Animation.easeInOut(duration: 2)
+//                .delay(1)
+//        )
+        
+//        .animation(
+//            Animation.easeInOut(duration: 1)
+//                .repeatCount(3, autoreverses: true)
+//        )
+        
+//        .animation(
+//            Animation.easeInOut(duration: 1)
+//                .repeatForever()
+//        )
+        
+        .overlay(
+            Circle()
+                .stroke(Color.red)
+                .scaleEffect(animationAmount)
+                .opacity(Double(2 - animationAmount))
+                .animation(
+                    Animation.easeOut(duration: 1)
+                        .repeatForever(autoreverses: false)
+                )
+        )
+        
+        .onAppear {
+            animationAmount = 2
+        }
+        
     }
 }
 
