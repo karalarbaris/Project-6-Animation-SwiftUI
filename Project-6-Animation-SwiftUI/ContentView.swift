@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-Animating gestures
+//Animating gestures
 
 struct ContentView: View {
 
