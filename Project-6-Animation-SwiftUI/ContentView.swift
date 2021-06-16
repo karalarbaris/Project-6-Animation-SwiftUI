@@ -7,34 +7,68 @@
 
 import SwiftUI
 
-//Animating gestures
 
+//Showing and hiding views with transitions
 struct ContentView: View {
 
-    @State private var dragAmount = CGSize.zero
+    @State private var isShowingRed = false
 
     var body: some View {
+        
+        NavigationView {
+            VStack {
+                Button("Touch me") {
+                    withAnimation {
+                        isShowingRed.toggle()
 
-        LinearGradient(gradient: Gradient(colors: [.yellow, .red]), startPoint: .topLeading, endPoint: .bottomTrailing)
-            .frame(width: 300, height: 200)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .offset(dragAmount)
-            .gesture(
-                DragGesture()
-                    .onChanged {
-                        self.dragAmount = $0.translation
                     }
-                    .onEnded({ _ in
-                        withAnimation(.spring()) {
-                            self.dragAmount = .zero
-                        }
-                    })
-
-            )
-//            .animation(.spring())
+                }
+                if isShowingRed {
+                    Rectangle()
+                        .fill(Color.red)
+                        .frame(width: 200, height: 200, alignment: .center)
+//                        .transition(.scale)
+                        .transition(.asymmetric(insertion: .opacity, removal: .scale))
+                }
+               
+            }
+        }
+       
+        
 
     }
 }
+
+
+
+////Animating gestures
+//
+//struct ContentView: View {
+//
+//    @State private var dragAmount = CGSize.zero
+//
+//    var body: some View {
+//
+//        LinearGradient(gradient: Gradient(colors: [.yellow, .red]), startPoint: .topLeading, endPoint: .bottomTrailing)
+//            .frame(width: 300, height: 200)
+//            .clipShape(RoundedRectangle(cornerRadius: 10))
+//            .offset(dragAmount)
+//            .gesture(
+//                DragGesture()
+//                    .onChanged {
+//                        self.dragAmount = $0.translation
+//                    }
+//                    .onEnded({ _ in
+//                        withAnimation(.spring()) {
+//                            self.dragAmount = .zero
+//                        }
+//                    })
+//
+//            )
+////            .animation(.spring())
+//
+//    }
+//}
 
 
 
